@@ -61,10 +61,8 @@ RUN apk update \
         MONGOC_TEST_SKIP_SLOW=on \
         MONGOC_TEST_SKIP_LIVE=on \
         make check \
-        \
  # Install mongo-c-driver
     && make install \
-    \
  # Download and prepare Coturn sources
     && curl -fL -o /tmp/coturn.tar.gz \ 
     https://github.com/coturn/coturn/archive/4.5.1.3.tar.gz \
