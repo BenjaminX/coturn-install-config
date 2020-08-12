@@ -35,11 +35,13 @@ RUN apk update \
     hiredis-dev \
     # mongo-c-driver build dependencies
     snappy-dev zlib-dev \
+    \
  # Download and prepare mongo-c-driver sources
     && curl -fL -o /tmp/mongo-c-driver.tar.gz \ 
     https://github.com/mongodb/mongo-c-driver/archive/1.17.0.tar.gz \
     && tar -xzf /tmp/mongo-c-driver.tar.gz -C /tmp/ \
     && cd /tmp/mongo-c-driver-* \
+    \
  # Build mongo-c-driver from sources
  # https://git.alpinelinux.org/aports/tree/non-free/mongo-c-driver/APKBUILD
     && mkdir -p /tmp/build/mongo-c-driver/ && cd /tmp/build/mongo-c-driver/ \
@@ -56,6 +58,7 @@ RUN apk update \
             -DCMAKE_SKIP_RPATH=ON \
             /tmp/mongo-c-driver-* \
     && make \
+    \
  # Check mongo-c-driver build
     && MONGOC_TEST_SKIP_MOCK=on \
         MONGOC_TEST_SKIP_SLOW=on \
@@ -64,11 +67,13 @@ RUN apk update \
  # Install mongo-c-driver
     && make install \
  # Download and prepare Coturn sources
+ \
     && curl -fL -o /tmp/coturn.tar.gz \ 
     https://github.com/coturn/coturn/archive/4.5.1.3.tar.gz \
     && tar -xzf /tmp/coturn.tar.gz -C /tmp/ \
     && cd /tmp/coturn-* \
  # Build Coturn from sources
+ \
     && ./configure --prefix=/usr \
             --turndbdir=/var/lib/coturn \
             --disable-rpath \
@@ -78,13 +83,17 @@ RUN apk update \
             --docsdir=/tmp/coturn/docs \
             --examplesdir=/tmp/coturn/examples \
     && make \
+    \
  # Install and configure Coturn
     && make install \
+    \
  # Preserve license file
     && mkdir -p /usr/share/licenses/coturn/ \
     && cp /tmp/coturn/docs/LICENSE /usr/share/licenses/coturn/ \
+    \
  # Remove default config file
     && rm -f /etc/coturn/turnserver.conf.default \
+    \
  # Cleanup unnecessary stuff
     && apk del .tool-deps .build-deps \
     && rm -rf /var/cache/apk/* \
