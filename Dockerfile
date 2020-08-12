@@ -8,7 +8,7 @@ EXPOSE 3478 3478/udp
 # Build and install coturn
 RUN apk update \
     && apk upgrade \
-    && apk add --no-cache ca-certificates curl git libbson python\
+    && apk add --no-cache ca-certificates curl git \
     && update-ca-certificates \
     \
 # Install coturn dependencies
@@ -46,7 +46,7 @@ RUN apk update \
     && git clone https://github.com/mongodb/mongo-c-driver.git \
     && cd /tmp/mongo-c-driver/ \
     && git checkout 1.17.0 \
-    && python build/calc_release_version.py > VERSION_CURRENT \
+    && VERSION_CURRENT=1.17.0 \
 
  # Build mongo-c-driver from sources
  # https://git.alpinelinux.org/aports/tree/non-free/mongo-c-driver/APKBUILD
