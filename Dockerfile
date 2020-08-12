@@ -62,7 +62,7 @@ RUN apk update \
             -DENABLE_TESTS:BOOL=ON \
             -DENABLE_EXAMPLES:BOOL=OFF \
             -DCMAKE_SKIP_RPATH=ON \
-            /tmp/mongo-c-driver-* \
+            /tmp/mongo-c-driver \
     && make \
  # Check mongo-c-driver build
     && MONGOC_TEST_SKIP_MOCK=on \
