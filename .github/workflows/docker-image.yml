@@ -10,9 +10,18 @@ jobs:
 
   build:
 
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: [2.7, 3.5, 3.6, 3.7, 3.8]
 
     steps:
     - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: '2.x'
+        architecture: 'x64'
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
