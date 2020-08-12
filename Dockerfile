@@ -1,23 +1,18 @@
-FROM alpine:dege
+FROM alpine:edge
 
 ADD scripts/ /scripts/
 
 EXPOSE 3478 3478/udp
 
 
-
-
 # Build and install coturn
 RUN apk update \
     && apk upgrade \
-    && apk add --no-cache \
-    ca-certificates \
-    curl \
-    wget \
+    && apk add --no-cache ca-certificates curl \
     && update-ca-certificates \
     \
 # Install coturn dependencies
-    && add --no-cache \
+    && apk add --no-cache \
     libevent \
     libcrypto1.1 libssl1.1 \
     libpq mariadb-connector-c sqlite-libs \
@@ -40,10 +35,9 @@ RUN apk update \
     hiredis-dev \
     # mongo-c-driver build dependencies
     snappy-dev zlib-dev \
-    \
  # Download and prepare mongo-c-driver sources
-    && curl -fL -o /tmp/mongo-c-driver.tar.gz \
-             https://github.com/mongodb/mongo-c-driver/archive/1.16.2.tar.gz \
+    && curl -fL -o /tmp/mongo-c-driver.tar.gz \ 
+    https://github.com/mongodb/mongo-c-driver/archive/1.17.0.tar.gz \
     && tar -xzf /tmp/mongo-c-driver.tar.gz -C /tmp/ \
     && cd /tmp/mongo-c-driver-* \
  # Build mongo-c-driver from sources
@@ -71,8 +65,8 @@ RUN apk update \
  # Install mongo-c-driver
     && make install \
  # Download and prepare Coturn sources
-    && curl -fL -o /tmp/coturn.tar.gz \
-         https://github.com/coturn/coturn/archive/4.5.1.2.tar.gz \
+    && curl -fL -o /tmp/coturn.tar.gz \ 
+    https://github.com/coturn/coturn/archive/4.5.1.3.tar.gz \
     && tar -xzf /tmp/coturn.tar.gz -C /tmp/ \
     && cd /tmp/coturn-* \
         \
