@@ -42,8 +42,9 @@ RUN apk update \
    #  && tar -xzf /tmp/mongo-c-driver.tar.gz -C /tmp/ \
    #  && cd /tmp/mongo-c-driver-* \
    #  \
-    && mkdir -p /tmp/mongo-c-driver/ && cd /tmp/mongo-c-driver/ \
+    && cd /tmp/ \
     && git clone https://github.com/mongodb/mongo-c-driver.git \
+    && cd /tmp/mongo-c-driver/ \
     && git checkout 1.17.0 \
     && python build/calc_release_version.py > VERSION_CURRENT \
 
