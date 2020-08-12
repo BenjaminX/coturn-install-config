@@ -68,7 +68,6 @@ RUN apk update \
     https://github.com/coturn/coturn/archive/4.5.1.3.tar.gz \
     && tar -xzf /tmp/coturn.tar.gz -C /tmp/ \
     && cd /tmp/coturn-* \
-        \
  # Build Coturn from sources
     && ./configure --prefix=/usr \
             --turndbdir=/var/lib/coturn \
@@ -79,7 +78,6 @@ RUN apk update \
             --docsdir=/tmp/coturn/docs \
             --examplesdir=/tmp/coturn/examples \
     && make \
-        \
  # Install and configure Coturn
     && make install \
  # Preserve license file
@@ -87,7 +85,6 @@ RUN apk update \
     && cp /tmp/coturn/docs/LICENSE /usr/share/licenses/coturn/ \
  # Remove default config file
     && rm -f /etc/coturn/turnserver.conf.default \
-        \
  # Cleanup unnecessary stuff
     && apk del .tool-deps .build-deps \
     && rm -rf /var/cache/apk/* \
