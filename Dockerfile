@@ -8,7 +8,7 @@ EXPOSE 3478 3478/udp
 # Build and install coturn
 RUN apk update \
     && apk upgrade \
-    && apk add --no-cache ca-certificates curl git libbson libmongoc\
+    && apk add --no-cache ca-certificates curl git libbson \
     && update-ca-certificates \
     \
 # Install coturn dependencies
@@ -36,35 +36,35 @@ RUN apk update \
     # mongo-c-driver build dependencies
     snappy-dev zlib-dev \
     \
-#  # Download and prepare mongo-c-driver sources
-#     && curl -fL -o /tmp/mongo-c-driver.tar.gz \ 
-#     https://github.com/mongodb/mongo-c-driver/archive/1.17.0.tar.gz \
-#     && tar -xzf /tmp/mongo-c-driver.tar.gz -C /tmp/ \
-#     && cd /tmp/mongo-c-driver-* \
-#     \
-#  # Build mongo-c-driver from sources
-#  # https://git.alpinelinux.org/aports/tree/non-free/mongo-c-driver/APKBUILD
-#     && mkdir -p /tmp/build/mongo-c-driver/ && cd /tmp/build/mongo-c-driver/ \
-#     && cmake -DCMAKE_BUILD_TYPE=Release \
-#             -DCMAKE_INSTALL_PREFIX=/usr \
-#             -DCMAKE_INSTALL_LIBDIR=lib \
-#             -DENABLE_BSON:STRING=ON \
-#             -DENABLE_MONGOC:BOOL=ON \
-#             -DENABLE_SSL:STRING=OPENSSL \
-#             -DENABLE_AUTOMATIC_INIT_AND_CLEANUP:BOOL=OFF \
-#             -DENABLE_MAN_PAGES:BOOL=OFF \
-#             -DENABLE_TESTS:BOOL=ON \
-#             -DENABLE_EXAMPLES:BOOL=OFF \
-#             -DCMAKE_SKIP_RPATH=ON \
-#             /tmp/mongo-c-driver-* \
-#     && make \
-#  # Check mongo-c-driver build
-#     && MONGOC_TEST_SKIP_MOCK=on \
-#         MONGOC_TEST_SKIP_SLOW=on \
-#         MONGOC_TEST_SKIP_LIVE=on \
-#         make check \
-#  # Install mongo-c-driver
-#     && make install \
+ # Download and prepare mongo-c-driver sources
+    && curl -fL -o /tmp/mongo-c-driver.tar.gz \ 
+    https://github.com/mongodb/mongo-c-driver/archive/1.17.0.tar.gz \
+    && tar -xzf /tmp/mongo-c-driver.tar.gz -C /tmp/ \
+    && cd /tmp/mongo-c-driver-* \
+    \
+ # Build mongo-c-driver from sources
+ # https://git.alpinelinux.org/aports/tree/non-free/mongo-c-driver/APKBUILD
+    && mkdir -p /mongo-c-driver/cmake-build && cd /mongo-c-driver/cmake-build \
+    && cmake -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_INSTALL_PREFIX=/usr \
+            -DCMAKE_INSTALL_LIBDIR=lib \
+            -DENABLE_BSON:STRING=ON \
+            -DENABLE_MONGOC:BOOL=ON \
+            -DENABLE_SSL:STRING=OPENSSL \
+            -DENABLE_AUTOMATIC_INIT_AND_CLEANUP:BOOL=OFF \
+            -DENABLE_MAN_PAGES:BOOL=OFF \
+            -DENABLE_TESTS:BOOL=ON \
+            -DENABLE_EXAMPLES:BOOL=OFF \
+            -DCMAKE_SKIP_RPATH=ON \
+            /tmp/mongo-c-driver-* \
+    && make \
+ # Check mongo-c-driver build
+    && MONGOC_TEST_SKIP_MOCK=on \
+        MONGOC_TEST_SKIP_SLOW=on \
+        MONGOC_TEST_SKIP_LIVE=on \
+        make check \
+ # Install mongo-c-driver
+    && make install \
  # Download and prepare Coturn sources
     && curl -fL -o /tmp/coturn.tar.gz \ 
     https://github.com/coturn/coturn/archive/4.5.1.3.tar.gz \
