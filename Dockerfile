@@ -8,7 +8,7 @@ EXPOSE 3478 3478/udp
 # Build and install coturn
 RUN apk update \
     && apk upgrade \
-    && apk add --no-cache ca-certificates curl git libbson\
+    && apk add --no-cache ca-certificates curl git libbson python\
     && update-ca-certificates \
     \
 # Install coturn dependencies
