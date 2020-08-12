@@ -37,11 +37,16 @@ RUN apk update \
     snappy-dev zlib-dev \
     \
  # Download and prepare mongo-c-driver sources
-    && curl -fL -o /tmp/mongo-c-driver.tar.gz \ 
-    https://github.com/mongodb/mongo-c-driver/archive/1.17.0.tar.gz \
-    && tar -xzf /tmp/mongo-c-driver.tar.gz -C /tmp/ \
-    && cd /tmp/mongo-c-driver-* \
-    \
+   #  && curl -fL -o /tmp/mongo-c-driver.tar.gz \ 
+   #  https://github.com/mongodb/mongo-c-driver/archive/1.17.0.tar.gz \
+   #  && tar -xzf /tmp/mongo-c-driver.tar.gz -C /tmp/ \
+   #  && cd /tmp/mongo-c-driver-* \
+   #  \
+    && mkdir -p /tmp/mongo-c-driver/ && cd /tmp/mongo-c-driver/ \
+    && git clone https://github.com/mongodb/mongo-c-driver.git \
+    && git checkout 1.17.0 \
+    && python build/calc_release_version.py > VERSION_CURRENT \
+
  # Build mongo-c-driver from sources
  # https://git.alpinelinux.org/aports/tree/non-free/mongo-c-driver/APKBUILD
     && mkdir -p /tmp/build/mongo-c-driver/ && cd /tmp/build/mongo-c-driver/ \
@@ -56,7 +61,6 @@ RUN apk update \
             -DENABLE_TESTS:BOOL=ON \
             -DENABLE_EXAMPLES:BOOL=OFF \
             -DCMAKE_SKIP_RPATH=ON \
-            -DBUILD_VERSION=1.17.0 \
             /tmp/mongo-c-driver-* \
     && make \
  # Check mongo-c-driver build
