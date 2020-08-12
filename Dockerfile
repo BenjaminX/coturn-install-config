@@ -56,7 +56,7 @@ RUN apk update \
             -DENABLE_TESTS:BOOL=ON \
             -DENABLE_EXAMPLES:BOOL=OFF \
             -DCMAKE_SKIP_RPATH=ON \
-            -DBUILD_VERSION=20200812 \
+            -DBUILD_VERSION=1.17.0 \
             /tmp/mongo-c-driver-* \
     && make \
  # Check mongo-c-driver build
