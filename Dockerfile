@@ -57,11 +57,6 @@ RUN apk update \
             -DCMAKE_SKIP_RPATH=ON \
             /tmp/mongo-c-driver \
     && make \
- # Check mongo-c-driver build
-   #  && MONGOC_TEST_SKIP_MOCK=on \
-   #      MONGOC_TEST_SKIP_SLOW=on \
-   #      MONGOC_TEST_SKIP_LIVE=on \
-   #      make check \
  # Install mongo-c-driver
     && make install \
  # Download and prepare Coturn sources
