@@ -91,6 +91,7 @@ RUN apk update \
     && rm -rf /var/cache/apk/* \
             /tmp/*
 
+RUN ["chmod", "+x", "/scripts/detect_external_ip.sh"]
 
 RUN /scripts/detect_external_ip.sh
 
