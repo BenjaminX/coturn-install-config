@@ -87,9 +87,9 @@ RUN apk update \
             /tmp/*
 
 RUN ["chmod", "+x", "/scripts/detect_external_ip.sh"]
-
 RUN /scripts/detect_external_ip.sh
 
+RUN ["chmod", "+x", "/scripts/docker_entrypoint.sh"]
 ENTRYPOINT ["/scripts/docker_entrypoint.sh"]
 
 CMD ["-n", "--log-file=stdout", "--external-ip=$(REAL_EXTERNAL_IP)"]
