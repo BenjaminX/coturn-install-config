@@ -46,7 +46,7 @@ RUN apk update \
     && git clone https://github.com/mongodb/mongo-c-driver.git \
     && cd /tmp/mongo-c-driver/ \
     && git checkout 1.17.0 \
-    && VERSION_CURRENT=1.17.0 \
+    && /usr/bin/python3.8 build/calc_release_version.py > VERSION_CURRENT \
 
  # Build mongo-c-driver from sources
  # https://git.alpinelinux.org/aports/tree/non-free/mongo-c-driver/APKBUILD
